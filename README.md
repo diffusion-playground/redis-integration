@@ -1,24 +1,29 @@
 # Extend Redis with Diffusion
 
-Introduction to Diffusion Real-Time Event Stream through a simple application using [Diffusion](https://www.pushtechnology.com/product-overview) Cloud and Redis Pub/Sub Server.
+Introduction to Diffusion Real-Time Event Stream through a simple application using [Diffusion Cloud](https://www.pushtechnology.com/product-overview) and Redis Pub/Sub Server.
 
-This JavaScript code example will help you publish external data on real-time from a public API to Redis, consume from it and transform data on-the-fly via our powerful [Topic Views](https://docs.pushtechnology.com/docs/6.5.2/manual/html/designguide/data/topictree/topic_views.html) feature. You can also use other programming languages from our [SDKs](https://docs.pushtechnology.com/#sdks), including iOS, Android, C, .NET, and more. 
+This JavaScript code example will help you publish data on real-time from a public API to Redis, consume from it and transform data on-the-fly via our powerful [Topic Views](https://docs.pushtechnology.com/docs/6.5.2/manual/html/designguide/data/topictree/topic_views.html) feature. You can also use other programming languages from our [SDKs](https://docs.pushtechnology.com/#sdks), including iOS, Android, C, .NET, and more. 
 
 # What this tutorial does
-## General Schema
+## Data Pipeline
 ![](./redis-app/images/redis-schema.png)
-## Market data
+## Data Feed: Bitcon Price
+For the purposes of this tutorial, we are going to be using the [Coindesk API](https://api.coindesk.com/v1/bpi/currentprice.json) to retrieve Bitcoin current value, in USD, Euros and GBP.
+```
+ https://api.coindesk.com/v1/bpi/currentprice.json
+```
+We created a file called [DataFeeder.js](https://github.com/diffusion-playground/redis-integration/blob/master/redis-app/js/services/DataFeeder.js) that connects to that Coinbase REST API and as we receive updates, we publish it into the Redis Service in the Data tier.
 ![](./images/market-data.png)  
-For the purposes of this tutorial, we are going to be using the [Coindesk API](https://api.coindesk.com/v1/bpi/currentprice.json) to retrieve Bitcoin current value, in USD, Euros and GBP. 
-We connect the that API and as we receive it's response, we feed it into the Data Tier (Redis Service).
-## Data Tier
-![](./images/data-tier.png)  
-In Redis we created a Topic to stream that data through, and we created a Redis Client to consume from the same channel. The client then shows a chart displaying the values consumed from Redis.  
-## Application Tier
+Once the Coinbase data is in Redis, we can visualize it in the app.
+## Data Tier: Redis Pub/Sub
+![](./images/data-tier.png) 
+In Redis we created a Topic to stream Bitcoin data through, and we created a [RedisClient.js](https://github.com/diffusion-playground/redis-integration/blob/master/redis-app/js/components/RedisClient.js) to consume that data from the same channel. The client then, shows a chart displaying the values consumed from Redis.   
+Now is time to connect to the customer backend system.
+## Application Tier: Diffusion Service
 ![](./images/application-tier.png)  
-This is where data collected in redis is, published to Diffusion.
-### Redis publisher
-The redis publisher, which is consuming data from the Redis Topic, in turn, publishes the same content to a Topic in Diffusion.
+Once data is flowing into [Diffusion Cloud](https://www.pushtechnology.com/product-overview) any client application can subscribe to it very easily.
+### [BackendService.js](https://github.com/diffusion-playground/redis-integration/blob/master/redis-app/js/services/BackendService.js): Redis publisher
+The Redis publisher, which is consuming data from the Redis Topic, in turn, publishes the same content to Diffusion Cloud service, using [Diffusion SDK](https://docs.pushtechnology.com/#sdks).
 ### Diffusion Server
 This is where the magic happens, data received can be Enriched and Fine Grained thanks to [Topic Views](https://docs.pushtechnology.com/docs/6.5.2/manual/html/designguide/data/topictree/topic_views.html), allowing Clients to consume only relevant data and increasing data efficiency.
 ## Client Tier
