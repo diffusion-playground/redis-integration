@@ -14,6 +14,7 @@ For the purposes of this tutorial, we are going to be using the [Coindesk API](h
  https://api.coindesk.com/v1/bpi/currentprice.json
 ```
 We created a file called [DataFeeder.js](https://github.com/diffusion-playground/redis-integration/blob/master/redis-app/js/services/DataFeeder.js) that connects to that Coinbase REST API and as we receive updates, we publish it into the Redis Service in the Data tier.
+
 Once the Coinbase data is in Redis, we can visualize it in the app.
 ## Data Tier: Redis Pub/Sub
 ![](./images/data-tier.png) 
