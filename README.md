@@ -29,17 +29,18 @@ Now is time to connect to the customer backend system.
 ## Application Tier: Diffusion Service
 ![](./images/application-tier.png)  
 
-Once data is flowing into [Diffusion Cloud](https://www.pushtechnology.com/product-overview) any client application can subscribe to it very easily.
 ### [BackendService.js](https://github.com/diffusion-playground/redis-integration/blob/master/redis-app/js/services/BackendService.js): Redis publisher
 The Redis publisher, which is consuming data from the Redis Topic, in turn, publishes the same content to Diffusion Cloud service, using [Diffusion SDK](https://docs.pushtechnology.com/#sdks).
 
 ### Diffusion Server
 This is where the magic happens, data received can be Enriched and Fine Grained thanks to [Topic Views](https://docs.pushtechnology.com/docs/6.5.2/manual/html/designguide/data/topictree/topic_views.html), allowing Clients to consume only relevant data and increasing data efficiency.
 
+Once data is flowing into [Diffusion Cloud](https://www.pushtechnology.com/product-overview) any client application can subscribe to it very easily.
+
 ## Client Tier
 ![](./images/client-tier.png) 
 
-Finally we have a Diffusion client, consuming from the Diffusion Topic and showing in the chart the values it received.
+Finally we have a [DiffusionClient.js](https://github.com/diffusion-playground/redis-integration/blob/master/redis-app/js/components/DiffusionClient.js), subscribed to the Diffusion Topic and showing the chart with real-time Bitcoin values coming from Redis.
 
 # The code in Action
 
