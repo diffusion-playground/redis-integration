@@ -17,7 +17,7 @@ We created a file called [DataFeeder.js](https://github.com/diffusion-playground
 
 Once the Coinbase data is in Redis, we can visualize it in the app.
 ## Data Tier: Redis Pub/Sub
-![](./images/data-tier.png) 
+![](./images/data-tier.png)
 In Redis we created a Topic to stream Bitcoin data through, and we created a [RedisClient.js](https://github.com/diffusion-playground/redis-integration/blob/master/redis-app/js/components/RedisClient.js) to consume that data from the same channel. The client then, shows a chart displaying the values consumed from Redis.   
 Now is time to connect to the customer backend system.
 ## Application Tier: Diffusion Service
