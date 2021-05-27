@@ -35,7 +35,7 @@ The [BackendService.js](https://github.com/diffusion-playground/redis-integratio
 ### [Diffusion Cloud service](https://dashboard.diffusion.cloud/signup)
 This is where the magic happens, data received can be Enriched and Fine Grained thanks to [Topic Views](https://docs.pushtechnology.com/docs/6.5.2/manual/html/designguide/data/topictree/topic_views.html), allowing Clients to consume only relevant data and increasing data efficiency.
 
-![](./redis-app/images/enrich.png)
+![](./images/enrich.png)
 
 Once data is flowing into [Diffusion Cloud](https://www.pushtechnology.com/product-overview), any client application can subscribe to it very easily.
 
