@@ -1,0 +1,26 @@
+version: "3"
+
+services:
+    client:
+        image: nginx
+        ports:
+            - 8008:80
+        volumes:
+            - .:/usr/share/nginx/html
+        depends_on: 
+            - redis-pubsub
+        networks:
+            - redis-network  
+    redis-pubsub:
+        image: "redis:alpine" # Use a public Redis image to build the redis service    
+        ports: 
+            - 6379:6379
+        container_name: redis-pubsub
+        restart: unless-stopped
+        volumes:
+        - ./conf/sysctl.conf:/etc/sysctl.conf
+        networks:
+        - redis-network  
+networks:
+  redis-network:
+    driver: bridge
