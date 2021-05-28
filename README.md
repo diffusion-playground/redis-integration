@@ -8,13 +8,14 @@ This JavaScript code example will help you publish data on real-time from a publ
 ## Data Pipeline
 ![](./redis-app/images/redis-schema.png)
 
-## Data Feed: Bitcon Price
-![](./images/market-data.png)
-
+## 1) Data Feed
 For the purposes of this tutorial, we are going to be using the [Coindesk API](https://api.coindesk.com/v1/bpi/currentprice.json) to retrieve Bitcoin current value, in USD, Euros and GBP.
 ```
  https://api.coindesk.com/v1/bpi/currentprice.json
 ```
+
+![](./images/market-data.png)
+
 We created a component called [DataFeeder.js](https://github.com/diffusion-playground/redis-integration/blob/master/redis-app/js/services/DataFeeder.js) that connects to the Coinbase REST API and, as it receives updates, it publishes values into the Redis Service in the Data tier.
 
 Once the Coinbase data is in Redis, we can visualize it in the app.
