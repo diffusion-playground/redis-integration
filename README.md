@@ -77,9 +77,9 @@ server.on('connection', function connection(ws) {
 });
 ```
 
-## The WebClient
+## The Web Application
 
-The WebClient consists of three main Services:
+The Web Application consists of three main Services:
 
 [**DataFeeder**](./redis-app/js/services/DataFeeder.js): This Service interacts with [Coindesk](https://api.coindesk.com/v1/bpi/currentprice.json), by polling data from its API and publishing it to Redis.
 
@@ -217,7 +217,7 @@ onDiffusionMessage = message => {
 }
 ```
 
-### [Diffusion Client](./redis-app/js/clients/Diffusion.js) functions
+### [Diffusion Client](./redis-app/js/sdk-clients/Diffusion.js) functions
 
 This is the client that directly interacts with Diffusion.  
 
