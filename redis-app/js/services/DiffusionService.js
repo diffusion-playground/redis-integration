@@ -1,4 +1,4 @@
-import Diffusion from "../clients/Diffusion.js";
+import Diffusion from "../sdk-clients/Diffusion.js";
 
 export default class DiffusionService {
     constructor() {
