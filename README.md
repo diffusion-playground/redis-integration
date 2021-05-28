@@ -35,6 +35,8 @@ The [BackendService.js](https://github.com/diffusion-playground/redis-integratio
 ### [Diffusion Cloud service](https://dashboard.diffusion.cloud/signup)
 This is where the magic happens, data received can be Enriched and Fine Grained thanks to [Topic Views](https://docs.pushtechnology.com/docs/6.5.2/manual/html/designguide/data/topictree/topic_views.html), allowing Clients to consume only relevant data and increasing data efficiency.
 
+![](./images/enrich.png)
+
 Once data is flowing into [Diffusion Cloud](https://www.pushtechnology.com/product-overview), any client application can subscribe to it very easily.
 
 ## Client Tier: Web App
@@ -75,9 +77,9 @@ server.on('connection', function connection(ws) {
 });
 ```
 
-## The WebClient
+## The Web Application
 
-The WebClient consists of three main Services:
+The Web Application consists of three main Services:
 
 [**DataFeeder**](./redis-app/js/services/DataFeeder.js): This Service interacts with [Coindesk](https://api.coindesk.com/v1/bpi/currentprice.json), by polling data from its API and publishing it to Redis.
 
@@ -215,7 +217,7 @@ onDiffusionMessage = message => {
 }
 ```
 
-### [Diffusion Client](./redis-app/js/clients/Diffusion.js) functions
+### [Diffusion Client](./redis-app/js/sdk-clients/Diffusion.js) functions
 
 This is the client that directly interacts with Diffusion.  
 
