@@ -1,9 +1,20 @@
+import DiffusionService from "./lib/DiffusionService.js";
+
 export default class BackendService {
     constructor() {
         // Lets create a Socket to interact with Redis
         this.redisWebSocket = new WebSocket("ws://127.0.0.1:3000/");
         this.chart = null;
-        this.diffusionService = null;
+        this.diffusionService = new DiffusionService();
+        this.topic = 'redis/bitcoin';
+        this.initUiElements();
+    }
+
+    initUiElements = () => {        
+        // Diffusion Connection elements        
+        this.hostEl = document.getElementById('host');
+        this.userEl = document.getElementById('user');
+        this.passwordEl = document.getElementById('password');
     }
 
     setTargetChart = chart => this.chart = chart;
@@ -19,7 +30,7 @@ export default class BackendService {
             this.message = JSON.parse(data); // Parse the data from Redis
             console.log('Data received from Redis: ', this.message);
                         
-            this.updateClient(data); //Feeds redis graph with data
+            //this.updateClient(data); //Feeds redis graph with data
             
             // Publish received data to Diffusion
             this.publishToDiffusion(this.message);
@@ -49,6 +60,15 @@ export default class BackendService {
      * @param {*} data 
      */
     publishToDiffusion = data => {
+        if (!this.diffusionService.diffusionClient) {
+            this.diffusionService.connect(
+                this.hostEl.value,
+                this.userEl.value,
+                this.passwordEl.value,
+                this.topic
+            );
+        }
+        
         if (this.diffusionService && this.diffusionService.diffusionClient) {
             this.diffusionService.publish(data);
         }

@@ -1,10 +1,10 @@
-import DataFeeder from "../services/DataFeeder.js";
-import BackendService from "../services/BackendService.js";
-import DiffusionClient from "../components/DiffusionClient.js";
-import RedisClient from "../components/RedisClient.js";
-import DiffusionService from "../services/DiffusionService.js";
+import BackendService from "./application-tier/BackendService.js";
+import DiffusionClient from "./client-tier/DiffusionClient.js";
+import RedisClient from "./client-tier/RedisClient.js";
+import DiffusionService from "./services/DiffusionService.js";
+import DataFeed from "./data-feed/DataFeed.js";
 
-export default class RedisDiffusion {
+export default class Main {
     constructor() {               
         this.initUiElements();
 
@@ -16,7 +16,7 @@ export default class RedisDiffusion {
         this.backendService.setTargetChart(new RedisClient());
         
         // Instantiate Data Feeder (Market Data)
-        this.dataFeeder = new DataFeeder(this.apiResponseBodyEl);
+        this.dataFeeder = new DataFeed(this.apiResponseBodyEl);
         this.dataFeeder.setBackendService(this.backendService);
 
         // Instantiate Diffusion Service (Aplication Tier)
@@ -56,7 +56,7 @@ export default class RedisDiffusion {
         });
 
         // Connect to Diffusion Service
-        this.connectBtn.addEventListener('click', evt => this.onDiffusionConnectBtnClicked(evt));
+        //this.connectBtn.addEventListener('click', evt => this.onDiffusionConnectBtnClicked(evt));
     }
     
     onDiffusionConnectBtnClicked = evt => {
@@ -72,5 +72,5 @@ export default class RedisDiffusion {
 }
 
 window.onload = function () {
-    let redisDiffusion = new RedisDiffusion();
+    let redisDiffusion = new Main();
 };

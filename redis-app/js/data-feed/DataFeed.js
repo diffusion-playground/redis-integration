@@ -1,6 +1,6 @@
-import { poll } from "./poller.js";
+import { poll } from "../lib/poller.js";
 
-export default class DataFeeder {
+export default class DataFeed {
     constructor(responseBodyEl) {
         this.apiUrl = 'https://api.coindesk.com/v1/bpi/currentprice.json';
         this.polling = false;
