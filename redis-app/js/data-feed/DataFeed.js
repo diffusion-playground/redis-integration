@@ -3,15 +3,10 @@ import { poll } from "./lib/poller.js";
 export default class DataFeed {
     constructor(responseBodyEl) {
         this.apiUrl = 'https://api.coindesk.com/v1/bpi/currentprice.json';
-        this.polling = false;
-        this.backendService = null;
+        this.redisWebSocket = new WebSocket("ws://127.0.0.1:3000/");
+        this.polling = false;        
         this.responseBodyEl = responseBodyEl;
     }
-
-    // Sets the API URL
-    setApiUrl = apiUrl => this.apiUrl = apiUrl;
-
-    setBackendService = backendService => this.backendService = backendService;
 
     /**
      * Start polling, when the start polling button was clicked
@@ -62,7 +57,7 @@ export default class DataFeed {
         this.responseBodyEl.innerHTML = '';
         this.responseBodyEl.appendChild(formatter.render());
         
-        // Publish polled data to Redis
-        this.backendService.publish(data);
+        // Publish polled data to Redis Websocket
+        this.redisWebSocket.send(JSON.stringify(data));
     }
 }

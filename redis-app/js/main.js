@@ -12,7 +12,6 @@ export default class Main {
         
         // Instantiate Data Feeder (Data Feed)
         this.dataFeeder = new DataFeed(this.apiResponseBodyEl);
-        this.dataFeeder.setBackendService(this.backendApp);
 
         // Instantiate Client Tier
         this.redisClient = new RedisClient();

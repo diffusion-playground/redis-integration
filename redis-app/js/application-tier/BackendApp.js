@@ -50,15 +50,6 @@ export default class BackendApp {
     }
 
     /**
-     * Sends data to the Redis Server
-     * @param {*} data 
-     */
-    publish = data => {
-        // Post to Redis Server through web sockets
-        this.redisWebSocket.send(JSON.stringify(data));
-    }
-
-    /**
      * Publish data received from socket to Diffusion
      * @param {*} data 
      */
