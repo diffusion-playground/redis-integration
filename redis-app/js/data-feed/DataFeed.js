@@ -1,4 +1,4 @@
-import { poll } from "../lib/poller.js";
+import { poll } from "./lib/poller.js";
 
 export default class DataFeed {
     constructor(responseBodyEl) {

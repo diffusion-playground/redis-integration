@@ -1,4 +1,4 @@
-import Diffusion from "../../lib/Diffusion.js";
+import Diffusion from "./Diffusion.js";
 
 export default class DiffusionService {
     constructor() {
@@ -15,13 +15,13 @@ export default class DiffusionService {
      * @param {*} evt 
      */
     connect = (
-        host, user, password, topic
+        host, user, password, topic, onMessageCallback
     ) => {
-        console.log('Connecting to Diffusion');        
+        console.log('Connecting to Diffusion');
 
         // Instantiate Diffusion's Client
         // We send the connect and on message callbacks to handle those events
-        this.diffusionClient = new Diffusion(this.onConnectedToDiffusion, this.onDiffusionMessage);
+        this.diffusionClient = new Diffusion(this.onConnectedToDiffusion, onMessageCallback || this.onDiffusionMessage);
 
         // Set Diffusion config
         this.diffusionClient.setConfig({
@@ -52,11 +52,6 @@ export default class DiffusionService {
      */
     onDiffusionMessage = message => {
         console.log('on Diffusion message', message);
-
-        this.chart.updateDataReceived(JSON.stringify(message).length);
-
-        // This message came from Diffusion! Feed Diffusion's Chart
-        this.chart.updateChart(message);
     }
 
     /**

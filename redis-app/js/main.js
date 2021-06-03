@@ -1,33 +1,23 @@
-import BackendService from "./application-tier/BackendService.js";
+import BackendApp from "./application-tier/BackendApp.js";
 import DiffusionClient from "./client-tier/DiffusionClient.js";
 import RedisClient from "./client-tier/RedisClient.js";
-import DiffusionService from "./services/DiffusionService.js";
 import DataFeed from "./data-feed/DataFeed.js";
 
 export default class Main {
     constructor() {               
         this.initUiElements();
 
-        // This is the topic name we are using everywhere
-        this.topic = 'redis/bitcoin';
-
-        // Instantiate Redis Service (Data Tier)
-        this.backendService = new BackendService();
-        this.backendService.setTargetChart(new RedisClient());
+        // Instantiate Backend Application (Application Tier)
+        this.backendApp = new BackendApp();        
         
-        // Instantiate Data Feeder (Market Data)
+        // Instantiate Data Feeder (Data Feed)
         this.dataFeeder = new DataFeed(this.apiResponseBodyEl);
-        this.dataFeeder.setBackendService(this.backendService);
+        this.dataFeeder.setBackendService(this.backendApp);
 
-        // Instantiate Diffusion Service (Aplication Tier)
-        this.diffusionService = new DiffusionService();
-        this.diffusionService.setTargetChart(new DiffusionClient());
-
-        // We set diffusion service into redis service for publishing data.
-        this.backendService.setDiffusionService(this.diffusionService);
-                
-        // Client tier is represented by the Diffusion and Redis Clients
-
+        // Instantiate Client Tier
+        this.redisClient = new RedisClient();
+        this.diffusionClient = new DiffusionClient();
+        
         // Add Buttons event listeners
         this.setEvents(); 
     }
@@ -35,13 +25,7 @@ export default class Main {
     initUiElements = () => {
         // Redis / API Section elements
         this.apiResponseBodyEl = document.getElementById('responseValue'); // The Bitcoin API response
-        this.startPollBtn = document.getElementById('startPolling'); // The button to start polling from the API
-
-        // Diffusion Section elements
-        this.connectBtn = document.getElementById('connectToDiffusion');
-        this.hostEl = document.getElementById('host');
-        this.userEl = document.getElementById('user');
-        this.passwordEl = document.getElementById('password');        
+        this.startPollBtn = document.getElementById('startPolling'); // The button to start polling from the API        
     }
 
     /**
@@ -51,22 +35,16 @@ export default class Main {
         // Start polling from API into Redis
         this.startPollBtn.addEventListener('click', evt => {
             evt.preventDefault();
-            this.dataFeeder.onStartPolling(evt)
-            this.backendService.startListeningRedisWebSocket();
-        });
+            
+            this.diffusionClient.start();
 
-        // Connect to Diffusion Service
-        //this.connectBtn.addEventListener('click', evt => this.onDiffusionConnectBtnClicked(evt));
-    }
-    
-    onDiffusionConnectBtnClicked = evt => {
-        evt.preventDefault();
-        this.diffusionService.connect(
-            this.hostEl.value,
-            this.userEl.value,
-            this.passwordEl.value,
-            this.topic
-        );
+            this.redisClient.start();
+
+            this.backendApp.start();
+
+            /* Start getting data from Data Feed */
+            this.dataFeeder.onStartPolling(evt);
+        });
     }
 
 }

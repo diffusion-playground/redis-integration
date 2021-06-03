@@ -44,7 +44,7 @@
             </div>
             <hr>
             <div class="row align-content-between align-items-top p-2">
-                <div class="col-md-3 border-end">                  
+                <div class="col-md-4 border-end">                  
                     <div class="rounded-number tier-title">1</div>
                     <h5 class="tier-title">Data Feed:</h5>
                     <h5 class="tier-title"><small>(https://api.coindesk.com/v1/bpi/currentprice.json)</small></h5>
@@ -52,17 +52,16 @@
                     <a href="#" class="btn btn-diffusion btn-sm text-white" id="startPolling">Start Getting Bitcoin values</a>
                     <pre class="json text mt-2" style="background-color: white; height: 250px;" id="responseValue"></pre>                                    
                 </div>
-                <div class="col-md-3 border-end">
+                <div class="col-md-4 border-end">
                   <div class="rounded-number tier-title">2</div>
                   <h5 class="tier-title">Data Tier</h5>
                   <p>Redis (Data Tier): This is a Nodejs application that interacts with the Redis SDK. It is a passthrough from websockets to redis, and back.</p>
-                </div>                  
-                <div class="col-md-3 border-end">
+                  <hr>
                   <div class="rounded-number tier-title">3</div>
                   <h5 class="tier-title">Application Tier</h5>
                   <p>Backend App (Application Tier): This app is subscribed to a Redis Topic. Is also connected to Diffusion. It publishes all data arrived in the Redis topic, to the Diffusion Topic.</p>
                 </div>    
-                <div class="col-md-3">
+                <div class="col-md-4">
                   <div class="rounded-number tier-title">4</div>
                   <h5 class="tier-title">Client Tier</h5>
                   <p>Diffusion and Redis Charts (Client Tier): Subscribed to topics in their corresponding servers, receiving data to draw each chart.</p>
@@ -78,7 +77,7 @@
     </div>
     <script src='https://download.pushtechnology.com/clients/6.5.1/js/diffusion-6.5.1.js'></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8" crossorigin="anonymous"></script>
-    <script src='js/lib/json-formatter.umd.js'></script>
+    <script src='js/data-feed/lib/json-formatter.umd.js'></script>
     <script src="https://code.jscharting.com/2.9.0/jscharting.js"></script>    
     <script src="js/main.js" type="module" async defer></script>
   </body>

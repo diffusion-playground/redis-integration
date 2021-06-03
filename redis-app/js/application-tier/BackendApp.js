@@ -1,13 +1,12 @@
 import DiffusionService from "./lib/DiffusionService.js";
 
-export default class BackendService {
+export default class BackendApp {
     constructor() {
         // Lets create a Socket to interact with Redis
-        this.redisWebSocket = new WebSocket("ws://127.0.0.1:3000/");
-        this.chart = null;
+        this.redisWebSocket = new WebSocket("ws://127.0.0.1:3000/");        
         this.diffusionService = new DiffusionService();
         this.topic = 'redis/bitcoin';
-        this.initUiElements();
+        this.initUiElements();        
     }
 
     initUiElements = () => {        
@@ -17,33 +16,37 @@ export default class BackendService {
         this.passwordEl = document.getElementById('password');
     }
 
-    setTargetChart = chart => this.chart = chart;
+    start = () => {
+        this.connectToDiffusion();
+        this.startListeningRedisWebSocket();
+    }
 
-    setDiffusionService = diffusionService => this.diffusionService = diffusionService;
+    connectToDiffusion = () => {
+        /* We connect to diffusion */
+        if (!this.diffusionService.diffusionClient) {
+            console.log('--- BackendApp: Connecting to Diffusion ---');
+            this.diffusionService.connect(
+                this.hostEl.value,
+                this.userEl.value,
+                this.passwordEl.value,
+                this.topic
+            );
+        }
+    }
 
     /**
      * Add the websocket listener to listen for Redis Messages
      */
     startListeningRedisWebSocket = () => {
-        this.redisWebSocket.onmessage = ({ data }) => {
-            console.log(data);
+        console.log('--- BackendApp: Connecting to WebSocket ---');
+        /* Then, we setup Redis Topic listener on the websocket */
+        this.redisWebSocket.onmessage = ({ data }) => {            
             this.message = JSON.parse(data); // Parse the data from Redis
             console.log('Data received from Redis: ', this.message);
-                        
-            //this.updateClient(data); //Feeds redis graph with data
             
             // Publish received data to Diffusion
             this.publishToDiffusion(this.message);
         }
-    }
-    
-    /**
-     * Updates Client with received data
-     * @param {*} data 
-     */
-    updateClient = data => {
-        this.chart.updateDataReceived(data.length);
-        this.chart.updateChart(this.message); // Feed the Redis graph with it
     }
 
     /**
@@ -59,16 +62,7 @@ export default class BackendService {
      * Publish data received from socket to Diffusion
      * @param {*} data 
      */
-    publishToDiffusion = data => {
-        if (!this.diffusionService.diffusionClient) {
-            this.diffusionService.connect(
-                this.hostEl.value,
-                this.userEl.value,
-                this.passwordEl.value,
-                this.topic
-            );
-        }
-        
+    publishToDiffusion = data => {                
         if (this.diffusionService && this.diffusionService.diffusionClient) {
             this.diffusionService.publish(data);
         }
