@@ -20,6 +20,10 @@ export default class DiffusionClient extends Chart {
         this.subscribeToDiffusion();
     }
 
+    /**
+     * Subscribe to a diffusion Topic.
+     * If it's not yet connected, first connect
+     */
     subscribeToDiffusion = () => {
         if (!this.diffusionService.diffusionClient) {
             console.log('*** Diffusion Client: Connecting to Diffusion ***');

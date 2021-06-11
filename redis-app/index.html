@@ -50,28 +50,36 @@
                     <h5 class="tier-title"><small>(https://api.coindesk.com/v1/bpi/currentprice.json)</small></h5>
                     <label for="name" class="mb-2">This is the Data Feed: Data injected into Redis (Data Feed)</label><br>
                     <a href="#" class="btn btn-diffusion btn-sm text-white" id="startPolling">Start Getting Bitcoin values</a>
-                    <pre class="json text mt-2" style="background-color: white; height: 250px;" id="responseValue"></pre>                                    
+                    <pre class="json text mt-2" style="background-color: white; height: 200px;" id="responseValue"></pre>                                    
                 </div>
                 <div class="col-md-4 border-end">
                   <div class="rounded-number tier-title">2</div>
                   <h5 class="tier-title">Data Tier</h5>
                   <p>Redis (Data Tier): This is a Nodejs application that interacts with the Redis SDK. It is a passthrough from websockets to redis, and back.</p>
-                  <hr>
+                </div>  
+                <div class="col-md-4 border-end">
                   <div class="rounded-number tier-title">3</div>
                   <h5 class="tier-title">Application Tier</h5>
                   <p>Backend App (Application Tier): This app is subscribed to a Redis Topic. Is also connected to Diffusion. It publishes all data arrived in the Redis topic, to the Diffusion Topic.</p>
-                </div>    
-                <div class="col-md-4">
-                  <div class="rounded-number tier-title">4</div>
-                  <h5 class="tier-title">Client Tier</h5>
-                  <p>Diffusion and Redis Charts (Client Tier): Subscribed to topics in their corresponding servers, receiving data to draw each chart.</p>
-                  <hr>
-                  <h5>Diffusion Client -> Data Received: <span id="diffusionDataReceived" class="font-weight-bold text-success">0</span> bytes</h5>
-                  <div id="diffusionChartDiv" class="border" style="height: 300px;"></div>
-                  <hr>
-                  <h5>Redis Client -> Data Received: <span id="redisDataReceived" class="font-weight-bold text-info">0</span> bytes</h5>
-                  <div id="chartDiv" class="border" style="height: 300px;"></div>
-                </div>
+                </div>                    
+            </div>v
+            <div class="row">v
+              <div class="col-md-12">
+                <div class="rounded-number tier-title">4</div>
+                <h5 class="tier-title">Client Tier</h5>
+                <p>Diffusion and Redis Charts (Client Tier): Subscribed to topics in their corresponding servers, receiving data to draw each chart.</p>                                
+              </div>
+              <hr>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <h5>Diffusion Client -> Data Received: <span id="diffusionDataReceived" class="font-weight-bold text-success">0</span> bytes</h5>
+                <div id="diffusionChartDiv" class="border" style="height: 300px;"></div>
+              </div>
+              <div class="col-md-6">
+                <h5>Redis Client -> Data Received: <span id="redisDataReceived" class="font-weight-bold text-info">0</span> bytes</h5>
+                <div id="chartDiv" class="border" style="height: 300px;"></div>
+              </div>              
             </div>
         </div>
     </div>
