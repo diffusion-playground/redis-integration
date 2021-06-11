@@ -13,7 +13,7 @@ This JavaScript code example will help you publish data on real-time from a publ
 ![](./images/diffusion-credentials.png)
 We first setup our Diffusion Cloud Credentials, you can use the ones we provide in this tutorial, or you can create your own in [Diffusion Cloud](https://management.ad.diffusion.cloud/)
 ## 1) Data Feed
-For the purposes of this tutorial, we are going to be using the [Coindesk API](https://api.coindesk.com/v1/bpi/currentprice.json) to retrieve Bitcoin current value, in USD, Euros and GBP.
+For the purposes of this tutorial, we are going to be using the [Coindesk API](https://api.coindesk.com/v1/bpi/currentprice.json) to retrieve Bitcoin current value, in USD, Euros and GBP; althought we are going to feed our charts with USD.
 ```
  https://api.coindesk.com/v1/bpi/currentprice.json
 ```
