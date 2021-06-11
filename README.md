@@ -47,7 +47,7 @@ Once data is flowing into [Diffusion Cloud](https://www.pushtechnology.com/produ
 
 In the client Tier, we have both [Redis](./redis-app/js/client-tier/RedisClient.js) and [Diffusion](./redis-app/js/client-tier/DiffusionClient.js) Clients. These clients are subscribed to either Redis and Diffusion topics, and showing received values in their charts.  
 Check **Data Received** in the Diffusion Client. You'll notice as the data is consumed, it take much less data than Redis Client, thanks to Diffusion Cloud data crunching capabilities.
-# The code in Actionv
+# The code in Action
 
 ## How it works
 
@@ -324,9 +324,9 @@ publishData(data) {
     2. nodejs and nodemon
 2. From the root of the project, run: docker-compose up -d -> To start the Web Server and the Redis Server.
 3. From the root of the project run:
-    1. nodemon js/redis-server/redis-server.js -> To start the redis service
+    1. nodemon js/data-tier/redis-server.js -> To start the redis service
 4. In your browser, go to: localhost:8008.
 5. There you go! 
-    1. First start listening to the API and running the Redis Server, on the left.
-    2. Then connect to Diffusion on the right
+    1. First setup Diffusion credentials at the top.
+    2. Then start polling from the external API.
     3. You'll see both charts being updated. Check the size of the data received by the charts and realize how much data you can save with Diffusion!
