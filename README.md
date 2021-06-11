@@ -168,6 +168,9 @@ onDiffusionMessage = message => {
 }
 ```
 
+## Core Classes
+
+These are classes that are used to interact with Diffusion Cloud in different Tiers.
 ### [Diffusion Service](./redis.app/../redis-app/js/application-tier/lib/DiffusionService.js)
 This service is used by both the **Application** and **Client** Tiers as an absctraction layer with Diffusion Cloud, through its **Javascript SDK Client**.
 
