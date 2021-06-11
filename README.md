@@ -20,16 +20,16 @@ For the purposes of this tutorial, we are going to be using the [Coindesk API](h
 
 ![](./images/market-data.png)
 
-We created a component called [DataFeeder.js](https://github.com/diffusion-playground/redis-integration/blob/master/redis-app/js/services/DataFeeder.js) that connects to the Coinbase REST API and, as it receives updates, it publishes values into the Redis Service in the Data tier.
+We created a [component](./redis-app/js/data-feed/DataFeed.js) that connects to the Coinbase REST API and, as it receives updates, it publishes values into the Redis Service in the Data tier.
 
 Once the Coinbase data is in Redis, we can visualize it in the app.
 
-## Data Tier: Redis Pub/Sub
+## 2) Data Tier: Redis Pub/Sub
 ![](./images/redis-server.png)
 
 We have in place a [Nodejs](./redis-app/js/data-tier/redis-server.js) application. This app serves as a passthrough between the data feed and the redis server, and back.
 
-## Application Tier  
+## 3) Application Tier  
 
 ### [Backend App](./redis-app/js/application-tier/BackendApp.js)
 
@@ -42,7 +42,7 @@ This is where the magic happens, data received can be Enriched and Fine Grained 
 
 Once data is flowing into [Diffusion Cloud](https://www.pushtechnology.com/product-overview), any client application can subscribe to it very easily.
 
-## Client Tier: 
+## 4) Client Tier: 
 ![](./images/client-tier.png) 
 
 In the client Tier, we have both [Redis](./redis-app/js/client-tier/RedisClient.js) and [Diffusion](./redis-app/js/client-tier/DiffusionClient.js) Clients. These clients are subscribed to either Redis and Diffusion topics, and showing received values in their charts.  
