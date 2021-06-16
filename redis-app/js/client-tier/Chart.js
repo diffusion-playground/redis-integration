@@ -1,5 +1,10 @@
 export default class Chart {
-    constructor(targetDiv, targetDataCounterDiv) {
+    constructor(targetDiv, targetDataCounterDiv, series) {
+        this.series = series || [{
+            name: 'USD',
+            points: []
+        }];
+
         this.chart = JSC.chart(targetDiv, {
             yAxis_formatString: 'n',
             xAxis_overflow: 'hidden',
@@ -10,22 +15,7 @@ export default class Chart {
             xAxis: {
                 scale_type: 'time'
             },
-            series: [
-                {
-                    name: 'USD',
-                    points: []
-                }
-                /* Uncomment the following lines if you want to include more currencies */
-                /*,
-                {
-                    name: 'GBP',
-                    points: []
-                },
-                {
-                    name: 'EUR',
-                    points: []
-                }*/
-            ]
+            series: this.series
         });
 
         this.totalReceivedDataLength = 0;
@@ -40,9 +30,9 @@ export default class Chart {
      * Updates chart with data from the external API
      * @param {*} data 
      */
-    updateChart = (data) => {
+    updateChart = (data, series = 0) => {
         // Feed values into the chart
-        this.chart.series(0).points.add({ y: parseFloat(data.bpi.USD.rate_float), x: new Date() });
+        this.chart.series(series || 0).points.add({ y: parseFloat(data.bpi.USD.rate_float), x: new Date() });
         
         /* Uncomment the following lines if you want to show more currencies */
 

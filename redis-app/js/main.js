@@ -1,5 +1,6 @@
 import BackendApp from "./application-tier/BackendApp.js";
 import DiffusionClient from "./client-tier/DiffusionClient.js";
+import DiffusionRedisCompareClient from "./client-tier/DiffusionRedisCompareClient.js";
 import RedisClient from "./client-tier/RedisClient.js";
 import DataFeed from "./data-feed/DataFeed.js";
 
@@ -14,6 +15,7 @@ export default class Main {
         this.dataFeeder = new DataFeed(this.apiResponseBodyEl);
 
         // Instantiate Client Tier
+        this.comparisonClient = new DiffusionRedisCompareClient();
         this.redisClient = new RedisClient();
         this.diffusionClient = new DiffusionClient();
         
@@ -40,6 +42,8 @@ export default class Main {
             this.redisClient.start();
 
             this.backendApp.start();
+
+            this.comparisonClient.start();
 
             /* Start getting data from Data Feed */
             this.dataFeeder.onStartPolling(evt);
