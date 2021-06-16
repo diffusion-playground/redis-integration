@@ -7,7 +7,9 @@ export default class Chart {
             toolbar: {
                 margin: 5                
             },
-            xAxis: { scale_type: 'time' },
+            xAxis: {
+                scale_type: 'time'
+            },
             series: [
                 {
                     name: 'USD',
@@ -40,7 +42,7 @@ export default class Chart {
      */
     updateChart = (data) => {
         // Feed values into the chart
-        this.chart.series(0).points.add({ y: parseFloat(data.bpi.USD.rate_float), x: data.time.updated });
+        this.chart.series(0).points.add({ y: parseFloat(data.bpi.USD.rate_float), x: new Date() });
         
         /* Uncomment the following lines if you want to show more currencies */
 

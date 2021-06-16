@@ -56,8 +56,9 @@ In the client Tier, we have both [Redis](./redis-app/js/client-tier/RedisClient.
 ![](./images/schema-client-tier.png) 
 
 Check **Data Received** in the Diffusion Client. You'll notice as the data is consumed, it take much less data than Redis Client, thanks to Diffusion Cloud data crunching capabilities.
-# The code in Action
+# The code in Action  
 
+In order to demonstrate each tier's isolation, we have deliberately duplicated code; only for this tutorial's purposes.
 ## How it works
 
 ### Redis and Web Servers 
