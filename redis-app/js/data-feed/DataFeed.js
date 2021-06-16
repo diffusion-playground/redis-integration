@@ -26,7 +26,7 @@ export default class DataFeed {
         const poller = poll({
             fn: this.callEndpoint, // This is the function that will handle data from the API
             validate: this.stopPolling, // This is where we define the exit condition for the polling
-            interval: 5000, // 5 seconds
+            interval: 1000, // 5 seconds
         })
             .then(response => {
                 this.apiResponseBodyEl.value = response;

@@ -22,6 +22,8 @@ For the purposes of this tutorial, we are going to be using the [Coindesk API](h
 
 We created a [component](./redis-app/js/data-feed/DataFeed.js) that connects to the Coinbase REST API and, as it receives updates, it publishes values into the Redis Service in the Data tier.
 
+![](./images/schema-data-feed.png)
+
 Once the Coinbase data is in Redis, we can visualize it in the app.
 
 ## 2) Data Tier: Redis Pub/Sub
@@ -29,7 +31,11 @@ Once the Coinbase data is in Redis, we can visualize it in the app.
 
 We have in place a [Nodejs](./redis-app/js/data-tier/redis-server.js) application. This app serves as a passthrough between the data feed and the redis server, and back.
 
+![](./images/schema-data-tier.png)
+
 ## 3) Application Tier  
+
+![](./images/schema-app-tier.png)
 
 ### [Backend App](./redis-app/js/application-tier/BackendApp.js)
 
@@ -46,6 +52,9 @@ Once data is flowing into [Diffusion Cloud](https://www.pushtechnology.com/produ
 ![](./images/client-tier.png) 
 
 In the client Tier, we have both [Redis](./redis-app/js/client-tier/RedisClient.js) and [Diffusion](./redis-app/js/client-tier/DiffusionClient.js) Clients. These clients are subscribed to either Redis and Diffusion topics, and showing received values in their charts.  
+
+![](./images/schema-client-tier.png) 
+
 Check **Data Received** in the Diffusion Client. You'll notice as the data is consumed, it take much less data than Redis Client, thanks to Diffusion Cloud data crunching capabilities.
 # The code in Action
 
