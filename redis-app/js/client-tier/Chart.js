@@ -32,7 +32,7 @@ export default class Chart {
      */
     updateChart = (data, series = 0) => {
         // Feed values into the chart
-        this.chart.series(series || 0).points.add({ y: parseFloat(data.bpi.USD.rate_float), x: new Date() });
+        this.chart.series(series || 0).points.add({ y: parseFloat(data.bpi.USD.rate_float), x: data.time.updated });
         
         /* Uncomment the following lines if you want to show more currencies */
 
